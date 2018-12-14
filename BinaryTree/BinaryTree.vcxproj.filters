@@ -19,4 +19,33 @@
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="btnode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="btree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="btree_implementation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="btree_insert.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="btree_remove.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="btree_search.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="btree_solveoverflow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="btree_solveunderflow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="btree_test.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

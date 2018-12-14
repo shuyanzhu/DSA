@@ -115,6 +115,52 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="permute.h" />
+    <ClInclude Include="vector.h" />
+    <ClInclude Include="vector_assignment.h" />
+    <ClInclude Include="vector_bracket.h" />
+    <ClInclude Include="vector_bubble.h" />
+    <ClInclude Include="vector_bubblesort.h" />
+    <ClInclude Include="vector_bubblesort_fast.h" />
+    <ClInclude Include="vector_bubble_fast.h" />
+    <ClInclude Include="vector_constructor_by_copying.h" />
+    <ClInclude Include="vector_deduplicate.h" />
+    <ClInclude Include="vector_deduplicate_1.h" />
+    <ClInclude Include="vector_deduplicate_wrong_1.h" />
+    <ClInclude Include="vector_disordered.h" />
+    <ClInclude Include="vector_expand.h" />
+    <ClInclude Include="vector_find.h" />
+    <ClInclude Include="vector_heapSort.h" />
+    <ClInclude Include="vector_implementation.h" />
+    <ClInclude Include="vector_insert.h" />
+    <ClInclude Include="vector_merge.h" />
+    <ClInclude Include="vector_mergesort.h" />
+    <ClInclude Include="vector_merge_optimized.h" />
+    <ClInclude Include="vector_partition_a.h" />
+    <ClInclude Include="vector_partition_a1.h" />
+    <ClInclude Include="vector_partition_b.h" />
+    <ClInclude Include="vector_partition_b1.h" />
+    <ClInclude Include="vector_partition_c.h" />
+    <ClInclude Include="vector_quicksort.h" />
+    <ClInclude Include="vector_remove.h" />
+    <ClInclude Include="vector_removeinterval.h" />
+    <ClInclude Include="vector_search.h" />
+    <ClInclude Include="vector_search_binary_a.h" />
+    <ClInclude Include="vector_search_binary_b.h" />
+    <ClInclude Include="vector_search_binary_c.h" />
+    <ClInclude Include="vector_search_fibonaccian_a.h" />
+    <ClInclude Include="vector_search_fibonaccian_b.h" />
+    <ClInclude Include="vector_selectionsort.h" />
+    <ClInclude Include="vector_shrink.h" />
+    <ClInclude Include="vector_sort.h" />
+    <ClInclude Include="vector_test.h" />
+    <ClInclude Include="vector_traverse.h" />
+    <ClInclude Include="vector_uniquify.h" />
+    <ClInclude Include="vector_uniquify_slow.h" />
+    <ClInclude Include="vector_unsort.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

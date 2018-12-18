@@ -8,8 +8,12 @@
 
 #pragma once
 
-#include<iostream>
-using namespace std;
-
-
-#include "BTree.h"
+template <typename T> BinNodePosi(T) BinNode<T>::zig() { //Ë³Ê±ÕëÐý×ª
+   BinNodePosi(T) lChild = lc;
+   lChild->parent = this->parent;
+   if ( lChild->parent )
+      ( ( this == lChild->parent->rc ) ? lChild->parent->rc : lChild->parent->lc ) = lChild;
+   lc = lChild->rc; if ( lc ) lc->parent = this;
+   lChild->rc = this; this->parent = lChild;
+   return lChild;
+}

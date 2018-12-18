@@ -118,6 +118,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\VS_pros\dsa\src\bst\bst.h" />
+    <ClInclude Include="..\..\VS_pros\dsa\src\bst\bst_connect34.h" />
+    <ClInclude Include="..\..\VS_pros\dsa\src\bst\bst_implementation.h" />
+    <ClInclude Include="..\..\VS_pros\dsa\src\bst\bst_insert.h" />
+    <ClInclude Include="..\..\VS_pros\dsa\src\bst\bst_remove.h" />
+    <ClInclude Include="..\..\VS_pros\dsa\src\bst\bst_removeat.h" />
+    <ClInclude Include="..\..\VS_pros\dsa\src\bst\bst_rotateat.h" />
+    <ClInclude Include="..\..\VS_pros\dsa\src\bst\bst_search.h" />
+    <ClInclude Include="..\..\VS_pros\dsa\src\bst\bst_searchin_iterative.h" />
+    <ClInclude Include="..\..\VS_pros\dsa\src\bst\bst_searchin_recursive.h" />
+    <ClInclude Include="..\..\VS_pros\dsa\src\bst\bst_test.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="maincpp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

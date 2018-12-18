@@ -119,10 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="donothing.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="test.cpp" />
-    <ClCompile Include="test1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mylist.h" />

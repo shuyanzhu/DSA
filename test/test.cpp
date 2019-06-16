@@ -2,7 +2,14 @@
 #include <stdlib.h>
 
 using namespace std;
-int main() {
-	cout << 2*sizeof(bool) << endl;
-	return 1;
+template <typename T>
+void print(){
+    T *elem = new T[10];
+    cout << sizeof(T) << endl;
 }
+int main() {
+//	cout << 2*sizeof(bool) << endl;
+    print<int>();
+	return 0;
+}
+

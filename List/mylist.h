@@ -96,7 +96,8 @@ public:
 	}
 public:
 	// 构造与析构接口
-	List() { init(); }
+//	List() { init(); }
+    List();
 	List(const List<T> &L) {
 		init();
 		for (Node<T> *p = L.first(); !L.empty(); p = p->succ) {
@@ -221,4 +222,8 @@ public:
 			visit(p->data);
 	}
 };
+template <typename T>
+List<T>::List() {
+    init();
+}
 #endif

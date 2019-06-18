@@ -1,14 +1,15 @@
 #ifndef MYSTACK
 #define MYSTACK
-#include<vector>
-template<T>
-class mystack :public std::vector<T> {
+#include "../vector/vector.h"
+template<typename T> class Stack : protected Vector<T> {
 public:
 	void push(const T &e) {
-		insert(size(), e);
+		this->insert(e);
 	}
-	T pop() { return remove(e); }
-	T &top() { return (*this)[size() - 1]; }
+	T pop() { return this->remove(this->_size-1); }
+	T &top() { return (*this)[Vector<T>::size() - 1]; }
+	bool empty(){ return this->_size == 0;}
+    int size(){ return this->_size; }
 };
-#endif;
+#endif
 

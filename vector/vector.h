@@ -20,7 +20,8 @@ public:
     Vector(const Vector<T> &from);
     Vector<T> & operator=(const Vector<T> &from);
     ~Vector();
-    int size(){ return _size;}
+
+    virtual int size(){ return _size;}
     T &operator[](Rank r)const; // 循秩访问
     Rank insert(Rank r, T e); // 插入
     Rank insert(T e); // 作为末尾元素插入
@@ -45,7 +46,7 @@ public:
     void quickSort(Rank lo, Rank hi);
 
 
-private:
+protected:
     int _size;
     int _capacity;
     T *_elem;

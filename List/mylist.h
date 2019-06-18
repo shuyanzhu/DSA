@@ -31,7 +31,7 @@ class Node {
 // 主要有插入/删除，查找，唯一化,排序和遍历
 template<typename T>
 class List {
-private:
+protected:
 	int _size; Node<T> *header; Node<T> *trailer;
     // 初始化函数复用
     void init() ;

@@ -1,1 +1,1 @@
-add_executable(list main.cpp)
+add_executable(list main.cpp ../queue/main.cpp ../queue/queue.h)

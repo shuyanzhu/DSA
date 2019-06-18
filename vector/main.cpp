@@ -17,14 +17,14 @@ int main(){
 //        }
 //        cout << test.size() << endl;
 //    }
-    for(int i = 0; i < 1000000; i++)
+    for(int i = 0; i < 100000; i++)
         test.insert(i);
     test.permute(0, test.size());
 //    test.traverse<Print<int> >(visit);
     cout << test.disordered() << endl;
     clock_t start, ends;
     start = clock();
-    test.quickSort(0, test.size());
+    test.selectSort(0, test.size());
     ends = clock();
     cout << ends - start << endl;
 //    test.traverse<Print<int> >(visit);

@@ -17,7 +17,7 @@ int main(){
 //        }
 //        cout << test.size() << endl;
 //    }
-    for(int i = 0; i < 100000; i++)
+    for(int i = 0; i < 10; i++)
         test.insert(i);
     test.permute(0, test.size());
 //    test.traverse<Print<int> >(visit);

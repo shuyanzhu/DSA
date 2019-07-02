@@ -4,6 +4,10 @@
 #include <iostream>
 #include <stdlib.h>
 #include <assert.h>
+/****************
+ * 写代码的
+ *
+ * **************/
 typedef int Rank;
 #define DEFAULT_CAPACITY 3
 template <typename T> void swap(T &a, T &b){
@@ -62,21 +66,23 @@ template <typename T> Vector<T>::Vector() {
 template <typename T> Vector<T>::Vector(int size, T e):_elem(nullptr), _capacity(0),  _size(0){
     _capacity = 2 * size;
     _elem = new T[_capacity];
-    memset(_elem, 0, sizeof(T) * _capacity);
+//    memset(_elem, 0, sizeof(T) * _capacity);
     for(int i = 0; i < size; i ++)_elem[_size++] = e;
 }
 template <typename T> Vector<T>::Vector(const Vector<T> &from){
     _size = from._size;
     _capacity = 2 * _size;
     _elem = new T[_capacity];
-    memcpy(_elem, from._elem, sizeof(T) * _size);
+//    memcpy(_elem, from._elem, sizeof(T) * _size);
+    for(int i = 0; i < _size; i++)_elem[i] = from._elem[i];
 }
 template <typename T> Vector<T> &Vector<T>::operator=(const Vector<T> &from){
     if(_elem)delete []_elem;
     _size = from._size;
     _capacity = 2 * _size;
     _elem = new T[_capacity];
-    memcpy(_elem, from._elem, sizeof(T) * _size);
+//    memcpy(_elem, from._elem, sizeof(T) * _size);
+    for(int i = 0; i < _size; i++)_elem[i] = from._elem[i];
 }
 template <typename T> Vector<T>::~Vector() {
     delete []_elem;
@@ -84,7 +90,8 @@ template <typename T> Vector<T>::~Vector() {
 template <typename T> void Vector<T>::expand(){
     _capacity *= 2;
     T *new_elem = new T[_capacity];
-    memcpy(new_elem, _elem, sizeof(T) * _size);
+//    memcpy(new_elem, _elem, sizeof(T) * _size);
+    for(int i = 0; i < _size; i++)new_elem[i] = _elem[i];
     delete[] _elem;
     _elem = new_elem;
 }
@@ -94,7 +101,8 @@ template <typename T> T &Vector<T>::operator[](Rank r) const {
 }
 template <typename T> Rank Vector<T>::insert(Rank r, T e) {
     assert(0 <= r && r <= _size);
-    memmove(_elem + r + 1, _elem + r, sizeof(T) * _size);
+//    memmove(_elem + r + 1, _elem + r, sizeof(T) * _size);
+    for(int i = _size; i > r; r--)_elem[i] = _elem[i-1];
     _elem[r] = e;
     _size ++;
     if(_size == _capacity)expand();
@@ -109,7 +117,8 @@ template <typename T> Rank Vector<T>::remove(Rank lo, Rank hi) {
     assert(0 <= lo && lo <= _size);
     assert(0 <= hi && hi <= _size);
     assert(lo < hi);
-    memmove(_elem + lo, _elem + hi, sizeof(T) * (_size - hi));
+//    memmove(_elem + lo, _elem + hi, sizeof(T) * (_size - hi));
+    for(int i = 0; i < (_size - hi); i++)_elem[lo + i] = _elem[hi + i];
     _size -= (hi - lo);
     if(_size * 4 < _capacity)shrink();
     return hi - lo;
@@ -120,9 +129,12 @@ template <typename T> T Vector<T>::remove(Rank r) {
     return e;
 }
 template <typename T> void Vector<T>::shrink() {
-    _capacity = 2 * _size;
+    if (_size == 0)_capacity = DEFAULT_CAPACITY;
+    else
+        _capacity = 2 * _size;
     T *new_elem = new T[_capacity];
-    memcpy(new_elem, _elem, sizeof(T) * _size);
+//    memcpy(new_elem, _elem, sizeof(T) * _size); // 有问题!!! 不能保证深拷贝
+    for(int i = 0; i < _size; i++)new_elem[i] = _elem[i];
     delete []_elem;
     _elem = new_elem;
 }
@@ -222,7 +234,8 @@ template <typename T> void Vector<T>::insertSort(Rank lo, Rank hi) {
         T tmp = _elem[i];
         Rank j = i;
         for(; j > -1 && _elem[--j] > tmp;);
-        memmove(_elem+j+2, _elem+j+1, sizeof(T) * (i - j -1));
+//        memmove(_elem+j+2, _elem+j+1, sizeof(T) * (i - j -1));
+        for(int k = i; k > j+1; k--)_elem[k] = _elem[k-1];
         _elem[j+1] = tmp;
     }
 }
@@ -250,7 +263,8 @@ template <typename T> void Vector<T>::mergeSort(Rank lo, Rank hi) {
 
     // merge
     T *A = new T[mi - lo];
-    memcpy(A, _elem + lo, sizeof(T) * (mi - lo));
+//    memcpy(A, _elem + lo, sizeof(T) * (mi - lo));
+    for (int i = 0; i < mi - lo;i++)A[i] = _elem[lo+i];
     int i = 0, j = mi, k = lo; // 在数组A中，在_elem大端，前两者比较后存放的位置
     while(true){
         if((i + lo) != mi && j != hi){

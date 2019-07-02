@@ -1,7 +1,7 @@
 #ifndef MYSTACK
 #define MYSTACK
 #include "../vector/vector.h"
-template<typename T> class Stack : protected Vector<T> {
+template<typename T> class Stack : public Vector<T> {
 public:
 	void push(const T &e) {
 		this->insert(e);

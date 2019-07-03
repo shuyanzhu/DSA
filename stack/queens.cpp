@@ -20,6 +20,7 @@ bool Queen::operator==(const Queen &other) const{
 }
 bool Queen::operator!=(const Queen &other) const { return !(*this == other); }
 
+// 找到解的数量
 // 使用栈方式迭代实现回溯
 // 此外还有递归回溯——无显式的退栈操作，函数返回时回溯到上一层
 // 无论是递归还是迭代，回溯的本质都是先摆的皇后处于试探性的状态，依赖于能不能有后摆的皇后存在
@@ -34,14 +35,14 @@ void eight_queens(int index){
             if(7 == index){
                 nsolu++;
                 solu.pop(); // 退栈，寻找下一处可能的解
-                return ;
+                return ; // 从本问题回溯
             }
             eight_queens(index+1); // 递归搜索子问题
             solu.pop(); // 从子问题返回后，要么子问题无解，要么找到解，均需要回溯到本层后继续试探
         }
     }
 }
-// 迭代同样可以实现两个方向!!!
+// 迭代同样可以实现两个方向!!!, 使用栈pop来实现回溯
 int queens(int N){
     int nsolu = 0;
     Stack<Queen> S;

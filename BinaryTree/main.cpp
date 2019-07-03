@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <stack>
-#include "Btree.h"
+#include "BinTree.h"
 
 using namespace std;
 

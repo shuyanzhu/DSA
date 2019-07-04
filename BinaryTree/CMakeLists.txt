@@ -1,1 +1,1 @@
-add_executable(BinaryTree main.cpp)
+add_executable(BinaryTree main.cpp ../_share/release.h)

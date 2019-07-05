@@ -1,1 +1,1 @@
-add_executable(BinaryTree main.cpp ../_share/release.h)
+add_executable(BinaryTree main.cpp ../_share/release.h ../PFC/PFC.h ../PFC/main.cpp)

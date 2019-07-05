@@ -1,1 +1,1 @@
-add_executable(test test.cpp)
+add_executable(property test.cpp)

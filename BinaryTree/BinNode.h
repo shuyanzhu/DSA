@@ -23,7 +23,7 @@
 // 与BinNode具有特定关系的节点及指针
 #define sibling(p) (IsLChild(*(p)) ? (p)->parent->rc : (p)->parent->lc)
 #define uncle(x) (IsLChild(*((x)->parent)) ? (x)->parent->parent->rc : (x)->parent->parent->lc)
-#define FromParentTo(x) (IsRoot(x) ? _root :(IsLChild(x) ? (x).parent->lc : (x).parent.rc))
+#define FromParentTo(x) (IsRoot(x) ? _root :(IsLChild(x) ? (x).parent->lc : (x).parent->rc))
 
 #define BinNodePosi(T) BinNode<T>* //节点位置
 #define stature(p) ((p) ? (p)->height : -1) //节点高度（与“空树高度为-1”的约定相统一）

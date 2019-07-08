@@ -8,5 +8,6 @@ add_subdirectory(stack)
 add_subdirectory(queue)
 add_subdirectory(BinaryTree)
 add_subdirectory(PFC)
+add_subdirectory(graph)
 add_subdirectory(test)
 

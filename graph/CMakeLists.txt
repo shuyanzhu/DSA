@@ -1,0 +1,1 @@
+add_executable(graph main.cpp graph.h GraphMatrix.h)

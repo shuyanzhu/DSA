@@ -1,1 +1,0 @@
-add_executable(bbst main.cpp bbst.h)

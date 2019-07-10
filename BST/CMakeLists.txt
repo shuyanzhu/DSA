@@ -1,0 +1,1 @@
+add_executable(bst main.cpp avl.h bst.h)

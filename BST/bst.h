@@ -1,9 +1,9 @@
 //
-// Created by zhuhu on 2019/7/9.
+// Created by zhuhu on 2019/7/10.
 //
 
-#ifndef DSA_BBST_H
-#define DSA_BBST_H
+#ifndef DSA_BST_H
+#define DSA_BST_H
 
 #include "../BinaryTree/BinTree.h"
 template <typename T> class BST : public BinTree<T>{
@@ -102,4 +102,6 @@ template <typename T> bool BST<T>::remove(const T &e) {
 //    }
 //    return true;
 //}
-#endif //DSA_BBST_H
+
+
+#endif //DSA_BST_H

@@ -47,12 +47,12 @@ template <typename T> BinNode<T>* BST<T>::insert(const T &e) {
 }
 template <typename T> static BinNode<T> *removeAt(BinNode<T> * &x, BinNode<T> * &hot){
     auto w = x;
-    BinNode<T> *succ = NULL;
-    if(!HasLChild(*x)){
+    BinNode<T> *succ = NULL; // 左右子树都没有
+    if(!HasLChild(*x)){ // 仅有右子树
         succ = x = x->rc;
-    } else if(!HasRChild(*x)){
-        succ = x = x->lc;
-    } else{
+    } else if(!HasRChild(*x)){ // 仅有左子树
+        succ = x = x->lc; 
+    } else{ // 左右子树都有
         w = w->succ();
         auto databak = x->data;
         x->data = w->data;

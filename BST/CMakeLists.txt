@@ -1,1 +1,1 @@
-add_executable(bst main.cpp avl.h bst.h)
+add_executable(bst main.cpp avl.h bst.h redblack.h)

@@ -10,5 +10,6 @@ add_subdirectory(BinaryTree)
 add_subdirectory(PFC)
 add_subdirectory(graph)
 add_subdirectory(BST)
+add_subdirectory(BTree)
 add_subdirectory(test)
 

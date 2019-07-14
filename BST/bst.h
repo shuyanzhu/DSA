@@ -72,6 +72,41 @@ template <typename T> bool BST<T>::remove(const T &e) {
     updateHeightAbove(_hot);
     return true;
 }
+template <typename T> BinNode<T>* BST<T>::connect34(BinNode<T> *T0, BinNode<T> *a, BinNode<T> *T1, BinNode<T> *b,
+                                                    BinNode<T> *T2, BinNode<T> *c, BinNode<T> *T3) {
+
+    a->lc = T0; if(T0)T0->parent = a;
+    a->rc = T1; if(T1)T1->parent = a;
+    updateHeightAbove(a); // T的高度是已经维护的，需要重新维护a, b, c的高度
+    c->lc = T2; if(T2)T2->parent = c;
+    c->rc = T3; if(T3)T3->parent = c;
+    updateHeight(c);
+    b->lc = a; a->parent = b;
+    b->rc = c; c->parent = c;
+    updateHeight(b);
+    return b;
+}
+template <typename T> BinNode<T>* BST<T>::rotateAt(BinNode<T> *x) {
+    if(IsLChild(*x)){ // zig
+        if(IsLChild(*(x->parent))) {// zig-zig
+            x->parent->parent = x->parent->parent->parent;
+            return connect34(x->lc, x, x->c, x->parent, x->parent->rc, x->parent->parent, x->parent->parent->rc);
+        }
+        else { // zig-zag
+            x->parent = x->parent->parent->parent;
+            return connect34(x->parent->parent->lc, x->parent->parent, x->lc, x, x->rc, x->parent, x->parent->rc);
+        }
+    } else{ // zag
+        if(IsRChild(*(x->parent))) { // zag-zag
+            x->parent->parent = x->parent->parent->parent;
+            return connect34(x->parent->parent->lc, x->parent->parent, x->parent->lc, x->parent, x->lc, x, x->rc);
+        }
+        else { // zag-zig
+            x->parent = x->parent->parent->parent;
+            return connect34(x->parent->lc, x->parent, x->lc, x, x->rc, x->parent->parent, x->parent->parent->rc);
+        }
+    }
+}
 //template <typename T> bool BST<T>::remove(const T &e) {
 //    auto &x = search(e); if(!x) return false;
 //    if(IsLeadf(*x)){

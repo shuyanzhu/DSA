@@ -10,16 +10,20 @@ void print(){
 int main() {
 //	cout << 2*sizeof(bool) << endl;
 //    print<int>();
-    int table[26] = {0};
-    int sum = 0;
-    for(int i = 0; i < 26; i++){
-        table[i] = rand() % 100;
-        sum += table[i];
-    }
-    for(int i = 0; i < 26 ; i++){
-        cout <<"\'" << char('A' + i) << "\'" << ", ";
-    }
-    cout << sum;
+//    int table[26] = {0};
+//    int sum = 0;
+//    for(int i = 0; i < 26; i++){
+//        table[i] = rand() % 100;
+//        sum += table[i];
+//    }
+//    for(int i = 0; i < 26 ; i++){
+//        cout <<"\'" << char('A' + i) << "\'" << ", ";
+//    }
+//    cout << sum;
+    int y = 0;
+    int z = 1;
+    auto x = (z == 1 ? y++ : y);
+    cout << x << y << endl;
 	return 0;
 }
 

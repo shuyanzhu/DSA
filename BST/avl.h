@@ -29,7 +29,7 @@ template <typename T> BinNode<T>* AVL<T>::insert(const T &e) {
     this->_size++;
     for(BinNode<T> *g = this->_hot; g; g = g->parent){
         if(!AvlBalanced(*g)) {
-            FromParentTo(*g) = rotateAt(g);
+            FromParentTo(*g) = rotateAt(tallerChild(*tallerChild(*g)));
             break;
         }
         updateHeight(g); // 未发生失衡也可能使树高增加
@@ -41,7 +41,7 @@ template <typename T> bool AVL<T>::remove(const T &e) {
     removeAt(x, this->_hot); this->_size--;
     for(auto g = this->_hot; g; g = g->parent){
         if(!AvlBalanced(*g)){
-            g = FromParentTo(*g) = rotateAt(g);
+            g = FromParentTo(*g) = rotateAt(tallerChild(*tallerChild(*g)));
         }
         updateHeight(g);
     }

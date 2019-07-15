@@ -1,0 +1,1 @@
+add_executable(dict main.cpp hash.h)

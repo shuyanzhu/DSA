@@ -18,18 +18,7 @@ public:
     virtual BinNode<T> *insert(const T &e); // 插入
     virtual bool remove(const T&e); // 删除
 };
-template <typename K, typename V> struct Entry{
-    K key; V value;
-    Entry (K k = K(), V v = V()): key(k), value(v){}
-    Entry (Entry<K, V> const &e): key(e.key), value(e.value){}
-    bool operator< (Entry<K, V> const &e){ return key < e.key; }
-    bool operator<= (Entry<K, V> const &e){ return key <= e.key; }
-    bool operator> (Entry<K, V> const &e){ return key > e.key; }
-    bool operator>= (Entry<K, V> const &e){ return key >= e.key; }
-    bool operator== (Entry<K, V> const &e){ return key == e.key; }
-    bool operator!= (Entry<K, V> const &e){ return key != e.key; }
 
-};
 template <typename T> static BinNode<T> * &searchIn(BinNode<T> * &v, const T &e, BinNode<T> * &hot){
     if(!v || (e == v->data))return v;
     hot = v;

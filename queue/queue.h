@@ -11,7 +11,7 @@ public:
     int size(){ return this->_size; }
     bool empty() { return this->_size == 0; }
     void enqueue(const T &e){ this->insertAsLast(e); }
-    T dequeue() { return this->remove(this->last()); }
+    T dequeue() { return this->remove(this->first()); }
     T &front() { return this->last()->data; }
 };
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../_share/release.h"
 #include <string.h>
 #include <iostream>
 #include <stdlib.h>
@@ -41,6 +42,7 @@ public:
     int disordered();
     int uniquify();
     Rank search(Rank lo, Rank hi, T e);
+    Rank search(const T &e){ return search(0, _size, e); }
     void permute(Rank lo, Rank hi);
     void sort(Rank lo, Rank hi);
     void bubbleSort(Rank lo, Rank hi);
@@ -85,6 +87,8 @@ template <typename T> Vector<T> &Vector<T>::operator=(const Vector<T> &from){
     for(int i = 0; i < _size; i++)_elem[i] = from._elem[i];
 }
 template <typename T> Vector<T>::~Vector() {
+    for(int i = 0; i < _size; i++)
+        release(_elem[i]);
     delete []_elem;
 }
 template <typename T> void Vector<T>::expand(){
@@ -102,7 +106,7 @@ template <typename T> T &Vector<T>::operator[](Rank r) const {
 template <typename T> Rank Vector<T>::insert(Rank r, T e) {
     assert(0 <= r && r <= _size);
 //    memmove(_elem + r + 1, _elem + r, sizeof(T) * _size);
-    for(int i = _size; i > r; r--)_elem[i] = _elem[i-1];
+    for(int i = _size; i > r; i--)_elem[i] = _elem[i-1];
     _elem[r] = e;
     _size ++;
     if(_size == _capacity)expand();

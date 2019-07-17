@@ -8,21 +8,25 @@
 //#include "array.h"
 #include "../vector/vector.h"
 #include "../_share/release.h"
+#include "../queue/queue.h"
+int debug_size = 0;
 template <typename T> struct BTNode{
     BTNode<T> *parent;
     Vector<T> key;
     Vector<BTNode<T> *> child;
     // 只能作为根节点进行创建
-    BTNode(){ parent = NULL; child.insert(0, NULL); } // 不需要使用构造函数列表，成员均可默认初始化
+    BTNode(){ parent = NULL; child.insert(0, NULL); debug_size++; } // 不需要使用构造函数列表，成员均可默认初始化
     BTNode(T e, BTNode<T> *lc = NULL, BTNode<T> *rc = NULL){
         parent = NULL;
         key.insert(0, e);
         child.insert(0, lc); child.insert(1, rc); // 至少一个节点，两个孩子
         if(lc)lc->parent = this; if(rc)rc->parent = this;
+        debug_size++;
     }
 };
 template <typename T> class BTree{
 protected:
+    int h;
     int _size;
     int _order;
     BTNode<T> *_root;
@@ -30,8 +34,8 @@ protected:
     void solveOverflow(BTNode<T> *x); // 因插入上溢分裂
     void solveUnderflow(BTNode<T> *x); // 因删除下溢合并
 public:
-    BTree(int _order = 3):_order(3), _size(0){ _root = new BTNode<T>(); }
-    ~BTree();
+    BTree(int _order = 3):_order(_order), _size(0){ _root = new BTNode<T>(); }
+    ~BTree(){ if(_root) { release(_root); }} // 偏特化的精髓
     int const order(){ return _order; }
     int const size() { return _size; }
     BTNode<T> * &root(){ return _root; }
@@ -40,10 +44,36 @@ public:
     bool insert(const T &e);
     bool remove(const T &e);
 };
+template <typename T> static void print(BTNode<T> *x){
+    Queue<BTNode<T> *>q;
+    q.enqueue(x);
+    while(!q.empty()){
+        auto p = q.dequeue();
+        if(p) {
+            for(int i = 0; i < p->key.size(); i++)
+                std::cout << p->key[i] << " ";
+            std::cout << "-->";
+            if(p->child[0]) {
+                q.enqueue(NULL);
+                for (int i = 0; i < p->child.size(); i++)
+                    q.enqueue(p->child[i]);
+            }
+        } else
+            std::cout << std::endl;
+    }
+}
+template <typename T> static void destroy(BTNode<T> *x){
+    if(!x) return;
+    for(int i = 0; i < x->child.size(); i++) {
+        destroy(x->child[1]);
+        x->child[i] = NULL; // child容器释放时会释放其中包含的指针
+    }
+    release(x);
+}
 template <typename T> BTNode<T>* BTree<T>::search(const T &e) {
     auto v = _root; _hot = NULL;
     while(v){
-        Rank r = v->key.search(0, _order, e);
+        Rank r = v->key.search(e);
         if((0 <= r) && (e == v->key[r])) return v;
         _hot = v; v = v->child[r+1];
     }
@@ -54,8 +84,10 @@ template <typename T> bool BTree<T>::insert(const T &e) {
     Rank r = _hot->key.search(e); // _hot节点必为叶子节点
     _hot->key.insert(r+1, e);
     _hot->child.insert(r+2, NULL);
-    _size --;
+    _size ++;
     solveOverflow(_hot);
+//    print(_root);
+//    std::cout << std::endl << "**************" << std::endl;
     return true;
 }
 template <typename T> void BTree<T>::solveOverflow(BTNode<T> *x) {
@@ -64,6 +96,7 @@ template <typename T> void BTree<T>::solveOverflow(BTNode<T> *x) {
     if(!p){ // 分裂到达根，先考虑向上的边界情况
         x->parent = p = _root = new BTNode<T>(); // 创建新的根
         p->child[0] = x; // 新创建的根节点孩子节点指向原来的根节点
+        h++;
     }
     Rank mi = _order / 2;
     auto s = new BTNode<T>();
@@ -71,7 +104,7 @@ template <typename T> void BTree<T>::solveOverflow(BTNode<T> *x) {
         s->key.insert(i, x->key.remove(mi + 1));
         s->child.insert(i, x->child.remove(mi + 1));
     }
-    s[_order - mi - 1] = x->child.remove(mi + 1);
+    s->child[_order - mi - 1] = x->child.remove(mi + 1);
     if(s->child[0]){  // 如果非叶子节点分裂
         for(int i = 0; i < s->child.size(); i++)
             s->child[i]->parent = s; // 重置节点父亲
@@ -79,6 +112,7 @@ template <typename T> void BTree<T>::solveOverflow(BTNode<T> *x) {
     Rank i = p->key.search(x->key[mi]);
     p->key.insert(i+1, x->key.remove(mi));
     p->child.insert(i+2, s); // 新节点比向父节点插入的关键码大
+    s->parent = p;
     solveOverflow(p); // 继续解决上溢
 }
 
@@ -97,10 +131,11 @@ template <typename T> bool BTree<T>::remove(const T &e) {
     return true;
 }
 template <typename T> void BTree<T>::solveUnderflow(BTNode<T> *x) {
-    if(x != _root && ((1 + _order) / 2 <= x->child.size())) return;
+    if(((1 + _order) / 2 <= x->child.size())) return; // 节点没有下溢
     if(x == _root){
         if(2 <= x->child.size()) return; // 根节点的下溢值为2
         if(x->child[0]){ // 树还有其他节点
+            h--;
             _root = x->child[0];
             _root->parent = NULL; // 根节点的父亲为空
             x->child[0] = NULL; // 避免容器释放根节点
@@ -152,7 +187,7 @@ template <typename T> void BTree<T>::solveUnderflow(BTNode<T> *x) {
             ls->child.insert(x->child.remove(0));
             delete(x); // 释放自己，返回左兄弟
             if(ls->child[0])
-                for(int i = 0l i < ls->child.size(); i++)
+                for(int i = 0; i < ls->child.size(); i++)
                     ls->child[0]->parent = ls;
         }
     }

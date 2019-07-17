@@ -12,5 +12,6 @@ add_subdirectory(graph)
 add_subdirectory(BST)
 add_subdirectory(BTree)
 add_subdirectory(Dict)
+add_subdirectory(PriorityQueue)
 add_subdirectory(test)
 

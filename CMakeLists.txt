@@ -14,5 +14,6 @@ add_subdirectory(BTree)
 add_subdirectory(Dict)
 add_subdirectory(PriorityQueue)
 add_subdirectory(StringMatch)
+add_subdirectory(Select)
 add_subdirectory(test)
 

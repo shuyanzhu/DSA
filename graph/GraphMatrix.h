@@ -13,7 +13,7 @@ template <typename T> struct Vertex{
     int parent; int priority; // 在遍历树中的父节点, 优先级
 
     Vertex(T const &d = (T)0):data(d), inDegree(0), outDegree(0),
-            status(UNDISCOVERED), dTime(-1), fTime(-1), parent(-1), priority(INT_MAX){}
+            status(UNDISCOVERED), dTime(-1), fTime(-1), parent(-1), priority(INT32_MAX){}
 };
 template <typename T> struct Edge{
     T data; int weight; EType type;

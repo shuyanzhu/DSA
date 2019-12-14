@@ -38,7 +38,7 @@ PFCForest *initForest();
 PFCTree *generateTree(PFCForest *forest);
 void generateCT(Bitmap *code, int length, PFCTable *table, BinNode<HuffChar> *v);
 int encode(Bitmap *bincode, const char *input, PFCTable *table);
-std::vector<char> *decode(Bitmap *code, int len, PFCTree *HuffTree)
+std::vector<char> *decode(Bitmap *code, int len, PFCTree *HuffTree);
 
 
 int encode(Bitmap *bincode, const char *input, PFCTable *table){

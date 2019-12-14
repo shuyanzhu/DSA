@@ -25,7 +25,7 @@ char *buildNext(char *P, char *next){
     while(j < m - 1){
         if(t < 0 || P[j] == P[t]){
             j++; t++;
-            next[j] = P[t] != P[j] ? t next[t]; // 改进后的方法
+            next[j] = P[t] != P[j] ? t : next[t]; // 改进后的方法
         } else{
             next[j] = t;
         }

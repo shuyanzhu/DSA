@@ -92,7 +92,7 @@ template <typename K, typename V> int HashTable<K, V>::probe4Free(const K &k) {
 template <typename K, typename V> void HashTable<K, V>::rehash() {
     int old_ca = M; Entry<K, V> **old_ht = ht;
     M = primeNLT(2 * M, 1048576, "prime-1048576-bitmap.txt");
-    ht = new Entry<K, V> *[M]; memset(ht, sizeof(0, Entry<K, V> *) *M);
+    ht = new Entry<K, V> *[M]; memset(ht,0 , sizeof(Entry<K, V> *) *M);
     release(layyRemoval); layyRemoval = new Bitmap(M);
 //    memcpy(ht, old_ht, sizeof(void *) * M); 不能这样
     N = 0;

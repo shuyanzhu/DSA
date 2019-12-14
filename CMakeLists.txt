@@ -2,6 +2,7 @@ project(DSA)
 cmake_minimum_required(VERSION 2.8)
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "-O0")
 add_subdirectory(vector)
 add_subdirectory(List)
 add_subdirectory(stack)
@@ -16,4 +17,3 @@ add_subdirectory(PriorityQueue)
 add_subdirectory(StringMatch)
 add_subdirectory(Select)
 add_subdirectory(test)
-

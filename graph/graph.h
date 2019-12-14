@@ -25,7 +25,7 @@ private:
     void reset() { //所有顶点、边的辅助信息复位
         for ( int i = 0; i < n; i++ ) { //所有顶点的
             status ( i ) = UNDISCOVERED; dTime ( i ) = fTime ( i ) = -1; //状态，时间标签
-            parent ( i ) = -1; priority ( i ) = INT_MAX; //（在遍历树中的）父节点，优先级数
+            parent ( i ) = -1; priority ( i ) = INT32_MAX; //（在遍历树中的）父节点，优先级数
             for ( int j = 0; j < n; j++ ) //所有边的
                 if ( exists ( i, j ) ) type ( i, j ) = UNDETERMINED; //类型
         }
@@ -154,7 +154,7 @@ template <typename Tv, typename Te> template <typename PU> void Graph<Tv, Te>::P
     while(true){
         for(int w = firstNbr(i); -1 < w; w = nextNbr(i, w))
             prioUpdater(this, i, w);
-        for(int shortest = INT_MAX, w = 0; w < n; w++){
+        for(int shortest = INT32_MAX, w = 0; w < n; w++){
             if(UNDISCOVERED == status(w))
                 if(shortest > priority(w)){
                     shortest = priority(w);

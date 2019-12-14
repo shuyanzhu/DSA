@@ -5,7 +5,7 @@
 #include "iostream"
 #include "btree.h"
 #include "time.h"
-#include "windows.h"
+//#include "windows.h"
 #include "stdlib.h"
 
 int main(){

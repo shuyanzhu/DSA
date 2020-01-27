@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <unistd.h>
 #include <errno.h>
+#include <algorithm>
 
 #include "unp.h"
 // 字符串读写环形缓冲区数据结构
@@ -19,9 +20,41 @@ private:
 public:
     CircleQueue(int capacity = 512): capacity_(capacity), front_(0), rear_(0), flag_(0){ queue_ = new char[capacity_]; }
     ~CircleQueue(){ delete queue_; }
-     // 环形缓冲区的使用导致增加了一次系统调用。避免方法是开辟空间但增加复制次数
+    int size() { return (flag_ ? capacity_ : (front_ <= rear_ ? (rear_ - front_) : (capacity_ - front_ + rear_))); }
     bool full(){ return flag_; }
     bool empty() { return !flag_ && front_ == rear_; }
+    bool in(char c){
+        if(flag_) return false;
+        queue_[rear_] = c;
+        rear_ = (rear_ + 1) % capacity_;
+        if(rear_ == front_) flag_ = 1;
+        return true;
+    }
+    bool out(char &c){
+        if(empty()) return false;
+        c = queue_[front_];
+        front_ = (front_ + 1) % capacity_;
+        return true;
+    }
+    int circleIn(CircleQueue &from){
+        if(flag_) return 0;
+
+        int free = capacity_ - size();
+        int fromSize = from.size();
+        int inNum = std::min(free, fromSize);
+        for(int i = 0; i < inNum; i++){
+            int thisIndex = (i + rear_) % capacity_, fromIndex = (i + from.front_) % from.capacity_;
+            queue_[thisIndex] =  from.queue_[fromIndex];
+        }
+        from.front_ = (from.front_ + inNum) % from.capacity_;
+        rear_ = (rear_ + inNum) % capacity_;
+        if(inNum != 0){
+            from.flag_ = 0;
+            if(front_ == rear_) flag_ = 1;
+        }
+        return inNum;
+    }
+     // 环形缓冲区的使用导致增加了一次系统调用。避免方法是开辟空间但增加复制次数
     int circleReadIn(int fileno){ // assert(rear_ < capacity_);
         int end1 = (front_ <= rear_ ? capacity_ : front_); // rear_ < end1
         int n1 = read(fileno, queue_ + rear_, end1 - rear_);

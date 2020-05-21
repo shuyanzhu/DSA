@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <assert.h>
 /****************
- * Ğ´´úÂëµÄ
+ * å†™ä»£ç çš„
  *
  * **************/
 typedef int Rank;
@@ -19,31 +19,31 @@ template <typename T> void swap(T &a, T &b){
 
 template <typename T> class Vector{
 public:
-    // Í¨ÓÃ½Ó¿Ú
+    // é€šç”¨æ¥å£
     Vector();
     Vector(int, T);
     Vector(const Vector<T> &from);
     Vector<T> & operator=(const Vector<T> &from);
-    void copyFrom ( T const* A, Rank lo, Rank hi ) { //ÒÔÊı×éÇø¼äA[lo, hi)ÎªÀ¶±¾¸´ÖÆÏòÁ¿
-        _elem = new T[_capacity = 2 * ( hi - lo ) ]; _size = 0; //·ÖÅä¿Õ¼ä£¬¹æÄ£ÇåÁã
-        while ( lo < hi ) //A[lo, hi)ÄÚµÄÔªËØÖğÒ»
-            _elem[_size++] = A[lo++]; //¸´ÖÆÖÁ_elem[0, hi - lo)
+    void copyFrom ( T const* A, Rank lo, Rank hi ) { //ä»¥æ•°ç»„åŒºé—´A[lo, hi)ä¸ºè“æœ¬å¤åˆ¶å‘é‡
+        _elem = new T[_capacity = 2 * ( hi - lo ) ]; _size = 0; //åˆ†é…ç©ºé—´ï¼Œè§„æ¨¡æ¸…é›¶
+        while ( lo < hi ) //A[lo, hi)å†…çš„å…ƒç´ é€ä¸€
+            _elem[_size++] = A[lo++]; //å¤åˆ¶è‡³_elem[0, hi - lo)
     }
     ~Vector();
 
     virtual int size(){ return _size;}
-    T &operator[](Rank r)const; // Ñ­ÖÈ·ÃÎÊ
-    Rank insert(Rank r, T e); // ²åÈë
-    Rank insert(T e); // ×÷ÎªÄ©Î²ÔªËØ²åÈë
-    Rank remove(Rank lo, Rank hi); // É¾³ı[lo, hi)Çø¼äµÄÔªËØ
-    T remove(Rank r); // É¾³ıÖÈÎªrµÄÔªËØ
-    Rank find(T e) const; // ÎŞĞò£¬·µ»ØµÈÓÚeµÄ×î´óÔªËØ£¬Èç¹ûÃ»ÓĞ·µ»Ø-1
+    T &operator[](Rank r)const; // å¾ªç§©è®¿é—®
+    Rank insert(Rank r, T e); // æ’å…¥
+    Rank insert(T e); // ä½œä¸ºæœ«å°¾å…ƒç´ æ’å…¥
+    Rank remove(Rank lo, Rank hi); // åˆ é™¤[lo, hi)åŒºé—´çš„å…ƒç´ 
+    T remove(Rank r); // åˆ é™¤ç§©ä¸ºrçš„å…ƒç´ 
+    Rank find(T e) const; // æ— åºï¼Œè¿”å›ç­‰äºeçš„æœ€å¤§å…ƒç´ ï¼Œå¦‚æœæ²¡æœ‰è¿”å›-1
     Rank find(T e, Rank lo, Rank hi) const;
     int deduplicate();
     void traverse(void (*visit)(T &));
     template <typename VST> void traverse(VST &visit);
 
-    // ÓĞĞò½Ó¿Ú
+    // æœ‰åºæ¥å£
     int disordered();
     int uniquify();
     Rank search(Rank lo, Rank hi, T e);
@@ -51,7 +51,7 @@ public:
     void permute(Rank lo, Rank hi);
     void sort(Rank lo, Rank hi);
     void bubbleSort(Rank lo, Rank hi);
-    void insertSort(Rank lo, Rank hi); // Ïà±ÈÃ°ÅİÅÅĞò½»»»´ÎÊı±äÉÙ
+    void insertSort(Rank lo, Rank hi); // ç›¸æ¯”å†’æ³¡æ’åºäº¤æ¢æ¬¡æ•°å˜å°‘
     void selectSort(Rank lo, Rank hi);
     void mergeSort(Rank lo, Rank hi);
     void quickSort(Rank lo, Rank hi);
@@ -61,9 +61,9 @@ protected:
     int _size;
     int _capacity;
     T *_elem;
-    void expand(); // ³É±¶Ôö³¤£¬½µµÍ·ÖÌ¯Ê±¼ä
-    void shrink(); // ËõË®
-    bool bubble(Rank lo, Rank hi); // Ã°ÅİÅÅĞòÒ»ÌË
+    void expand(); // æˆå€å¢é•¿ï¼Œé™ä½åˆ†æ‘Šæ—¶é—´
+    void shrink(); // ç¼©æ°´
+    bool bubble(Rank lo, Rank hi); // å†’æ³¡æ’åºä¸€è¶Ÿ
 };
 template <typename T> Vector<T>::Vector() {
     _capacity = DEFAULT_CAPACITY;
@@ -142,7 +142,7 @@ template <typename T> void Vector<T>::shrink() {
     else
         _capacity = 2 * _size;
     T *new_elem = new T[_capacity];
-//    memcpy(new_elem, _elem, sizeof(T) * _size); // ÓĞÎÊÌâ!!! ²»ÄÜ±£Ö¤Éî¿½±´
+//    memcpy(new_elem, _elem, sizeof(T) * _size); // æœ‰é—®é¢˜!!! ä¸èƒ½ä¿è¯æ·±æ‹·è´
     for(int i = 0; i < _size; i++)new_elem[i] = _elem[i];
     delete []_elem;
     _elem = new_elem;
@@ -254,7 +254,7 @@ template <typename T> void Vector<T>::quickSort(Rank lo, Rank hi) {
     T flag = _elem[lo];
     int i = lo, j = hi - 1;
     while(i != j){
-        while(i !=j && flag <= _elem[j])j--; // <=ºÅ£¬±ÜÃâÌõ¼ş¹ıÇ¿Ê±i,j°üº¬µÄÖµ¿ÉÄÜÔÚÁ½±ßµßµ¹£¬Ê¹ÓÃ<ĞèÒªi++,ÇÚÓÚ½»»»
+        while(i !=j && flag <= _elem[j])j--; // <=å·ï¼Œé¿å…æ¡ä»¶è¿‡å¼ºæ—¶i,jåŒ…å«çš„å€¼å¯èƒ½åœ¨ä¸¤è¾¹é¢ å€’ï¼Œä½¿ç”¨<éœ€è¦i++,å‹¤äºäº¤æ¢
         _elem[i] = _elem[j];
         while (i != j && _elem[i] <= flag)i++;
         _elem[j] = _elem[i];
@@ -274,7 +274,7 @@ template <typename T> void Vector<T>::mergeSort(Rank lo, Rank hi) {
     T *A = new T[mi - lo];
 //    memcpy(A, _elem + lo, sizeof(T) * (mi - lo));
     for (int i = 0; i < mi - lo;i++)A[i] = _elem[lo+i];
-    int i = 0, j = mi, k = lo; // ÔÚÊı×éAÖĞ£¬ÔÚ_elem´ó¶Ë£¬Ç°Á½Õß±È½Ïºó´æ·ÅµÄÎ»ÖÃ
+    int i = 0, j = mi, k = lo; // åœ¨æ•°ç»„Aä¸­ï¼Œåœ¨_elemå¤§ç«¯ï¼Œå‰ä¸¤è€…æ¯”è¾ƒåå­˜æ”¾çš„ä½ç½®
     while(true){
         if((i + lo) != mi && j != hi){
             if(A[i] < _elem[j])_elem[k++] = A[i++];
@@ -288,7 +288,7 @@ template <typename T> void Vector<T>::mergeSort(Rank lo, Rank hi) {
     }
     delete []A;
 }
-// ±éÀúÀà
+// éå†ç±»
 template <typename T> class Print{
 public:
     void operator()(int e){std::cout << e << std::endl;}

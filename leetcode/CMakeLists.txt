@@ -1,0 +1,1 @@
+add_executable(leecode_main main.cpp)
